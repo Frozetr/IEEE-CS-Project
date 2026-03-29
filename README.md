@@ -1,8 +1,14 @@
-# IEEE CS Ekibi Mario
+# IEEE CS Ekibi Game Project
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+This is a platformer game project that backed by Computer Society of IEEE student club at Işık University.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+Mainly used languages/libraries/frameworks/Etc...
+
+Game Engine: libGDX
+Languages: Java & Kotlin
+Graphics API: OpenGL 2.0
+Physics API: JBox2D
+Font Provider API: FreeType
 
 ## Platforms
 
