@@ -1,6 +1,7 @@
 package ieee.cs.isik.platformergaeme.game;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Disposable;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -10,15 +11,15 @@ import org.jetbrains.annotations.NotNull;
  *
  * @see IEntity
  */
-public abstract class Entity extends IEntity {
+public abstract class Entity extends IEntity implements Disposable {
 
     /// Every entity should have a body so they can interact with each other physically
     @NotNull
     private final Body body;
 
-    public Entity(final int id, final float health, final float maxHealth, @NotNull final Body body) {
+    public Entity(final int id, final int type, final String name, final float health, final float maxHealth, @NotNull final Body body) {
         // Initialize the super class IEntity
-        super(id, health, maxHealth);
+        super(id, type, name, health, maxHealth);
 
         this.body = body;
     }
