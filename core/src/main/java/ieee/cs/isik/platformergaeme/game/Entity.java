@@ -28,4 +28,10 @@ public abstract class Entity extends IEntity implements Disposable {
     public Body getBody() {
         return body;
     }
+
+    /// Clean up resources
+    @Override
+    public void dispose() {
+        body.getWorld().destroyBody(body);
+    }
 }
