@@ -17,6 +17,9 @@ public abstract class Entity extends IEntity implements Disposable {
     @NotNull
     private final Body body;
 
+    /// Holds color filter and Texture data(s) for render
+    private Material material;
+
     public Entity(final int id, final int type, final String name, final float health, final float maxHealth, @NotNull final Body body) {
         // Initialize the super class IEntity
         super(id, type, name, health, maxHealth);
@@ -27,6 +30,15 @@ public abstract class Entity extends IEntity implements Disposable {
     @NotNull
     public Body getBody() {
         return body;
+    }
+
+    @NotNull
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(@NotNull Material material) {
+        this.material = material;
     }
 
     /// Clean up resources
