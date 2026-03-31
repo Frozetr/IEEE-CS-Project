@@ -3,14 +3,21 @@ package ieee.cs.isik.platformergaeme.game;
 import com.badlogic.gdx.physics.box2d.Body;
 import org.jetbrains.annotations.NotNull;
 
-public class WeaponEntity extends Entity{
+public abstract class WeaponEntity extends CarriableEntity {
 
-    public int charge;
-    public final int capacity;
+    public final float coolDown;
 
-    public WeaponEntity(int id, int type, String name, float health, float maxHealth, @NotNull Body body, final int charge, final int capacity) {
-        super(id, type, name, health, maxHealth, body);
-        this.charge = charge;
-        this.capacity = capacity;
+    public WeaponEntity(int id, int type, String name, float health, float maxHealth, @NotNull Body body, @NotNull Material material, final float coolDown) {
+        super(id, type, name, health, maxHealth, body, material);
+        this.coolDown = coolDown;
+    }
+
+    @Override
+    public abstract void use();
+
+    @Override
+    public void drop() {
+        carrier.weapon = null;
+        super.drop();
     }
 }
