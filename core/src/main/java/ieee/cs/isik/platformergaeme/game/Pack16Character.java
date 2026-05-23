@@ -4,7 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.*;
+import ieee.cs.isik.platformergaeme.GameManager;
 import org.jetbrains.annotations.NotNull;
 
 public enum Pack16Character implements Character {
@@ -33,9 +34,26 @@ public enum Pack16Character implements Character {
     }
 
     @Override
-    public CharacterEntity loadEntity(final AssetManager assets, final int id, @NotNull Body body) {
+    public CharacterEntity loadEntity(final AssetManager assets, final int id, @NotNull World physicsWorld) {
 
         Material mat = getMaterial(assets);
+
+        BodyDef def = new BodyDef();
+        def.type = BodyDef.BodyType.DynamicBody;
+        def.fixedRotation = true;
+        Body body = physicsWorld.createBody(def);
+
+        PolygonShape circle = new PolygonShape();
+
+        float hHeight = GameManager.getCharacterHeightInPixels() / GameManager.getMeter2PixelsRatio() / 2;
+        float hWidth = hHeight * 3 / 4;
+        circle.setAsBox(hWidth, hHeight);
+
+        double area = hWidth * hHeight * 4;
+        float density = (float)(80f / area);
+
+        Fixture Fix = body.createFixture(circle, density);
+        Fix.setUserData("character");
 
         return new CharacterEntity(id, 0, "Character", 100f, 100f, body, mat, null, null);
     }
