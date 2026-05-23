@@ -1,9 +1,6 @@
 package ieee.cs.isik.platformergaeme.screens;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import ieee.cs.isik.platformergaeme.AssetPair;
@@ -64,6 +60,8 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
 
     SpriteBatch batch = new SpriteBatch();
 
+    CharacterEntity myChar;
+
 
     /**
      * Called when this screen becomes the current screen for a {@link Game}.
@@ -111,8 +109,8 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
         }
 
         if(entities.isEmpty()) {
-            CharacterEntity myChar = addMainChar();
-            myChar.body.setTransform(10f, 1f, 0);
+            myChar = addMainChar();
+            myChar.body.setTransform(10f, 10f, 0);
         }
     }
 
@@ -217,19 +215,10 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
     }
 
     public CharacterEntity addMainChar() {
-
-        BodyDef def = new BodyDef();
-        def.type = BodyDef.BodyType.DynamicBody;
-        Body body = physicsWorld.createBody(def);
-
-        Shape circle = new CircleShape();
-        circle.setRadius(GameManager.getCharacterHeightInPixels() / GameManager.getMeter2PixelsRatio() / 2);
-        Fixture Fix = body.createFixture(circle, 1f);
-
         CharacterEntity myChar = Pack16Character.C_PUNPKIN.loadEntity(
             assetManager,
             0,
-            body
+            physicsWorld
         );
 
         ((StateMaterial)myChar.material).state = 1;
