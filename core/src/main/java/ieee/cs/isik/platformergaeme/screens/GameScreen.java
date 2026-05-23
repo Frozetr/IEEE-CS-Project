@@ -101,7 +101,8 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
                         PolygonShape shape = new PolygonShape();
                         shape.setAsBox(0.5f, 0.5f);
 
-                        body.createFixture(shape, 1f);
+                        Fixture fix = body.createFixture(shape, 1f);
+                        fix.setUserData("wall");
                         shape.dispose();
                     }
                 }

@@ -53,6 +53,7 @@ public enum Pack16Character implements Character {
         float density = (float)(80f / area);
 
         Fixture Fix = body.createFixture(circle, density);
+        Fix.setUserData("character");
 
         return new CharacterEntity(id, 0, "Character", 100f, 100f, body, mat, null, null);
     }
