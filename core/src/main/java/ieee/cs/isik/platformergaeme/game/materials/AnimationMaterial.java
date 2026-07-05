@@ -2,6 +2,7 @@ package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -33,4 +34,9 @@ public class AnimationMaterial extends Material {
         return animation.getKeyFrame(stateTime);
     }
 
+    @Override
+    public Vector2 getDrawSize() {
+        var frame = animation.getKeyFrame(stateTime);
+        return new Vector2(frame.getRegionWidth(), frame.getRegionHeight());
+    }
 }

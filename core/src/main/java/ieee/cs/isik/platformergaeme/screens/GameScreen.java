@@ -228,7 +228,7 @@ public class GameScreen implements Screen, IAssetfull {
 
             float whRatio = (float)texture.getRegionWidth()  / texture.getRegionHeight();
 
-            float height = GameManager.getCharacterHeightInPixels();
+            float height = GameManager.getCharacterDrawHeightInPixels();
             float width = height * whRatio;
 
             float halfW = width / 2,

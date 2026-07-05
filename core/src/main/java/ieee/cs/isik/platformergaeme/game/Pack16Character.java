@@ -44,7 +44,8 @@ public enum Pack16Character implements Character {
         def.fixedRotation = true;
         Body body = physicsWorld.createBody(def);
 
-        float hHeight = GameManager.getCharacterHeightInPixels() / GameManager.getMeter2PixelsRatio() / 2;
+        float ahHeight = GameManager.characterDrawHeightInMeters / 2;
+        float hHeight = GameManager.characterHeightInMeters / 2;
         float hWidth = hHeight * 3 / 4 * 0.6f; // Multiply with 0.6f for game experience
 
         PolygonShape mainHitbox = new PolygonShape();
@@ -52,7 +53,7 @@ public enum Pack16Character implements Character {
 
         CircleShape feetHitbox = new CircleShape();
         feetHitbox.setRadius(hWidth);
-        feetHitbox.setPosition(new Vector2(0, -hHeight + hWidth));
+        feetHitbox.setPosition(new Vector2(0, -ahHeight + hWidth));
 
 
         double mainHitboxArea = hWidth * (hHeight - hWidth) * 4;

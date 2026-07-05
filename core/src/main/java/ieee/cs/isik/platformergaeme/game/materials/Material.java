@@ -2,6 +2,7 @@ package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 
 /**
@@ -25,4 +26,5 @@ public abstract class Material {
 
     /// Get the texture in question
     public abstract TextureRegion getFrame();
+    public abstract Vector2 getDrawSize();
 }
