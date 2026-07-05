@@ -50,7 +50,7 @@ public enum Pack16Character implements Character {
         circle.setAsBox(hWidth, hHeight);
 
         double area = hWidth * hHeight * 4;
-        float density = (float)(80f / area);
+        float density = (float)(MASS / area);
 
         Fixture Fix = body.createFixture(circle, density);
         Fix.setUserData("character");

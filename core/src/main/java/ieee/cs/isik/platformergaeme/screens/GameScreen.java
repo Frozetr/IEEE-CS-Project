@@ -1,9 +1,6 @@
 package ieee.cs.isik.platformergaeme.screens;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,26 +8,67 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import ieee.cs.isik.platformergaeme.AssetPair;
 import ieee.cs.isik.platformergaeme.GameManager;
-import ieee.cs.isik.platformergaeme.game.CharacterEntity;
-import ieee.cs.isik.platformergaeme.game.MapManager;
-import ieee.cs.isik.platformergaeme.game.Pack16Character;
-import ieee.cs.isik.platformergaeme.game.StateMaterial;
+import ieee.cs.isik.platformergaeme.IAssetfull;
+import ieee.cs.isik.platformergaeme.game.*;
+import ieee.cs.isik.platformergaeme.game.Character;
 import ieee.cs.isik.platformergaeme.game.mapmanagers.TestMap;
-import ieee.cs.isik.platformergaeme.stages.MenuStage;
+import ieee.cs.isik.platformergaeme.stages.GameStage;
+import ieee.cs.isik.platformergaeme.util.*;
+import kotlin.Unit;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfull {
+public class GameScreen implements Screen, IAssetfull {
 
-    private Stage stage;
+    CharacterEntity mainCharacter;
+    private final InputProcessorGroup inputProcessor = new InputProcessorGroup(
+        new CharacterSkillsBufferedInputAdapter(input -> {
+            switch (input.getType()) {
+                case JUMP -> {
+                    mainCharacter.body.applyLinearImpulse(
+                        new Vector2(0f, Character.MASS * 4.43f * 2),
+                        mainCharacter.body.getWorldCenter(),
+                        true
+                    );
+                }
+                case ATTACK, CONSUME -> {
+                    throw new RuntimeException("Not implemented yet");
+                }
+            }
+
+            return Unit.INSTANCE;
+        }),
+        new CharacterMovementInputAdapter(
+            (moveSign) -> {
+                Vector2 currentSpeed = mainCharacter.body.getLinearVelocity();
+                currentSpeed.x = AcceleratorKt.accelerate(
+                    currentSpeed.x,
+                    Character.MOVE_SPEED,
+                    moveSign,
+                    Gdx.graphics.getDeltaTime(),
+                    15f
+                );
+
+                mainCharacter.body.setLinearVelocity(
+                    currentSpeed
+                );
+
+
+                return Unit.INSTANCE;
+            }
+        )
+    );
+
     private boolean isStageBuild = false;
 
     AssetManager assetManager = new AssetManager();
@@ -64,11 +102,10 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
     }
 
 
-    final LinkedList<ieee.cs.isik.platformergaeme.game.Entity> entities = new LinkedList<ieee.cs.isik.platformergaeme.game.Entity>();
+    final LinkedList<Entity> entities = new LinkedList<Entity>();
 
     SpriteBatch batch = new SpriteBatch();
 
-    CharacterEntity mainCharacter;
     /**
      * Called when this screen becomes the current screen for a {@link Game}.
      */
@@ -86,7 +123,7 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
             mapManager = new TestMap(map, camera);
         }
 
-        for (com.badlogic.gdx.maps.tiled.TiledMapTileLayer layer : map.getLayers().getByType(com.badlogic.gdx.maps.tiled.TiledMapTileLayer.class)) {
+        for (TiledMapTileLayer layer : map.getLayers().getByType(TiledMapTileLayer.class)) {
 
             for (int col = 0; col < layer.getWidth(); col++) {
                 for (int row = 0; row < layer.getHeight(); row++) {
@@ -121,9 +158,12 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
         }
 
         if(!isStageBuild) {
-            stage = new MenuStage(new FillViewport(16 * 40f,9*40f), assetManager);
+            Stage stage = new GameStage(new FillViewport(16 * 40f, 9 * 40f), assetManager);
+            inputProcessor.addFirst(stage); // Make sure the stage is the first invoked input processor, this will prevent bugs like; pressing home button but ESC key is overridden by another input processor
             isStageBuild = true;
         }
+
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 
     /**
@@ -147,12 +187,17 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
             2 // If entities gets conflict so much we must increase position iterations.
         );
 
+        for (InputProcessor processor : inputProcessor) {
+            if(processor instanceof ActableInputAdapter)
+                ((ActableInputAdapter)processor).act();
+        }
+
         mapManager.render(delta);
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        for(ieee.cs.isik.platformergaeme.game.Entity entity: entities) {
-            ieee.cs.isik.platformergaeme.game.Material mat = entity.material;
+        for(Entity entity: entities) {
+            Material mat = entity.material;
             mat.act(delta);
             final Vector2 pos = entity.body.getPosition();
             TextureRegion texture = mat.getFrame();
@@ -169,7 +214,7 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
         }
         batch.end();
 
-        com.badlogic.gdx.math.Matrix4 debugMatrix = new com.badlogic.gdx.math.Matrix4(camera.combined);
+        Matrix4 debugMatrix = new Matrix4(camera.combined);
         debugMatrix.scale(GameManager.getMeter2PixelsRatio(), GameManager.getMeter2PixelsRatio(), 1f);
         box2DDebugRenderer.render(physicsWorld, debugMatrix);
     }
@@ -218,7 +263,7 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
     @Override
     public void dispose() {
         physicsWorld.dispose();
-        for(ieee.cs.isik.platformergaeme.game.Entity e: entities)
+        for(Entity e: entities)
             e.dispose();
         mapManager.dispose();
         physicsWorld.dispose();

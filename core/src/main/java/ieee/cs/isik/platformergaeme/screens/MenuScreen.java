@@ -38,6 +38,7 @@ public class MenuScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
             stage = new MenuStage(new FillViewport(16 * 40f,9*40f), assets);
             isStageBuild = true;
         }
+        Gdx.input.setInputProcessor(stage);
     }
 
     /**
