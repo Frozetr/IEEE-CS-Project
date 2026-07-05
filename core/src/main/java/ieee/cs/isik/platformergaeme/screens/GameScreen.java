@@ -1,6 +1,9 @@
 package ieee.cs.isik.platformergaeme.screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import ieee.cs.isik.platformergaeme.AssetPair;
 import ieee.cs.isik.platformergaeme.GameManager;
 import ieee.cs.isik.platformergaeme.game.CharacterEntity;
@@ -17,6 +22,7 @@ import ieee.cs.isik.platformergaeme.game.MapManager;
 import ieee.cs.isik.platformergaeme.game.Pack16Character;
 import ieee.cs.isik.platformergaeme.game.StateMaterial;
 import ieee.cs.isik.platformergaeme.game.mapmanagers.TestMap;
+import ieee.cs.isik.platformergaeme.stages.MenuStage;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -24,6 +30,8 @@ import java.util.List;
 
 public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfull {
 
+    private Stage stage;
+    private boolean isStageBuild = false;
 
     AssetManager assetManager = new AssetManager();
     TiledMap map;
@@ -60,9 +68,7 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
 
     SpriteBatch batch = new SpriteBatch();
 
-    CharacterEntity myChar;
-
-
+    CharacterEntity mainCharacter;
     /**
      * Called when this screen becomes the current screen for a {@link Game}.
      */
@@ -110,8 +116,13 @@ public class GameScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
         }
 
         if(entities.isEmpty()) {
-            myChar = addMainChar();
-            myChar.body.setTransform(10f, 10f, 0);
+            mainCharacter = addMainChar();
+            mainCharacter.body.setTransform(10f, 10f, 0);
+        }
+
+        if(!isStageBuild) {
+            stage = new MenuStage(new FillViewport(16 * 40f,9*40f), assetManager);
+            isStageBuild = true;
         }
     }
 
