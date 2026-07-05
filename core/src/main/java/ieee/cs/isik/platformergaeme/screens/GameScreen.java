@@ -20,7 +20,7 @@ import ieee.cs.isik.platformergaeme.IAssetfull;
 import ieee.cs.isik.platformergaeme.game.*;
 import ieee.cs.isik.platformergaeme.game.Character;
 import ieee.cs.isik.platformergaeme.game.mapmanagers.TestMap;
-import ieee.cs.isik.platformergaeme.stages.GameStage;
+import ieee.cs.isik.platformergaeme.game.materials.Material;import ieee.cs.isik.platformergaeme.game.materials.StateMaterial;import ieee.cs.isik.platformergaeme.stages.GameStage;
 import ieee.cs.isik.platformergaeme.util.*;
 import kotlin.Unit;
 

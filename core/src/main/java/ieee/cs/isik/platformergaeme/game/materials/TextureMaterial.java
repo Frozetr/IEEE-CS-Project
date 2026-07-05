@@ -1,4 +1,4 @@
-package ieee.cs.isik.platformergaeme.game;
+package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.jetbrains.annotations.NotNull;

@@ -2,7 +2,7 @@ package ieee.cs.isik.platformergaeme.game;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Disposable;
-import org.jetbrains.annotations.NotNull;
+import ieee.cs.isik.platformergaeme.game.materials.Material;import org.jetbrains.annotations.NotNull;
 
 
 /**

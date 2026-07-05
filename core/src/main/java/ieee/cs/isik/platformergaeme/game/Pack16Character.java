@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import ieee.cs.isik.platformergaeme.GameManager;
-import org.jetbrains.annotations.NotNull;
+import ieee.cs.isik.platformergaeme.game.materials.AnimationMaterial;import ieee.cs.isik.platformergaeme.game.materials.Material;import ieee.cs.isik.platformergaeme.game.materials.StateMaterial;import ieee.cs.isik.platformergaeme.game.materials.TextureMaterial;import org.jetbrains.annotations.NotNull;
 
 public enum Pack16Character implements Character {
     C_12("12"),

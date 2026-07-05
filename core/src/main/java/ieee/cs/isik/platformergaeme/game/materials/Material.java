@@ -1,8 +1,7 @@
-package ieee.cs.isik.platformergaeme.game;
+package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 
 /**
