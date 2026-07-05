@@ -17,10 +17,17 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import ieee.cs.isik.platformergaeme.AssetPair;
 import ieee.cs.isik.platformergaeme.GameManager;
 import ieee.cs.isik.platformergaeme.IAssetfull;
-import ieee.cs.isik.platformergaeme.game.*;
 import ieee.cs.isik.platformergaeme.game.Character;
-import ieee.cs.isik.platformergaeme.game.entity.CharacterEntity;import ieee.cs.isik.platformergaeme.game.entity.Entity;import ieee.cs.isik.platformergaeme.game.mapmanagers.TestMap;
-import ieee.cs.isik.platformergaeme.game.materials.Material;import ieee.cs.isik.platformergaeme.game.materials.StateMaterial;import ieee.cs.isik.platformergaeme.stages.GameStage;
+import ieee.cs.isik.platformergaeme.game.FixtureData;
+import ieee.cs.isik.platformergaeme.game.MapManager;
+import ieee.cs.isik.platformergaeme.game.Pack16Character;
+import ieee.cs.isik.platformergaeme.game.entity.CharacterEntity;
+import ieee.cs.isik.platformergaeme.game.entity.Entity;
+import ieee.cs.isik.platformergaeme.game.mapmanagers.TestMap;
+import ieee.cs.isik.platformergaeme.game.materials.Material;
+import ieee.cs.isik.platformergaeme.game.materials.StateMaterial;
+import ieee.cs.isik.platformergaeme.game.physics.SolidConcatListener;
+import ieee.cs.isik.platformergaeme.stages.GameStage;
 import ieee.cs.isik.platformergaeme.util.*;
 import kotlin.Unit;
 
@@ -35,6 +42,7 @@ public class GameScreen implements Screen, IAssetfull {
         new CharacterSkillsBufferedInputAdapter(input -> {
             switch (input.getType()) {
                 case JUMP -> {
+                    if(!mainCharacter.collidingSolid || mainCharacter.body.getLinearVelocity().y != 0) break;
                     mainCharacter.body.applyLinearImpulse(
                         new Vector2(0f, Character.MASS * 4.43f * 2),
                         mainCharacter.body.getWorldCenter(),
@@ -94,6 +102,11 @@ public class GameScreen implements Screen, IAssetfull {
         new Vector2(0, -9.8f), // Default gravity of the World, 9.8 m / s^2 to the down
         true // Allow sleep state, this will ignore in active bodies which is going to improve  game performance
     );
+    {
+        physicsWorld.setContactListener(
+            new SolidConcatListener()
+        );
+    }
 
 
     Box2DDebugRenderer box2DDebugRenderer = new Box2DDebugRenderer();

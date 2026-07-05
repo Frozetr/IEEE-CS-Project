@@ -1,12 +1,12 @@
 package ieee.cs.isik.platformergaeme.game
 
-data class FixtureData(
+import ieee.cs.isik.platformergaeme.game.entity.Entity
+
+open class FixtureData(
     val type: Type
 ) {
     enum class Type  {
-        CHARACTER,
         SOLID,
         SPIKE,
     }
 }
-
