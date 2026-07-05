@@ -48,7 +48,7 @@ public enum Pack16Character implements Character {
         float hWidth = hHeight * 3 / 4 * 0.6f; // Multiply with 0.6f for game experience
 
         PolygonShape mainHitbox = new PolygonShape();
-        mainHitbox.setAsBox(hWidth, hHeight - hWidth, new Vector2(0, hWidth), 0);
+        mainHitbox.setAsBox(hWidth, hHeight - hWidth/2, new Vector2(0, hWidth / 2), 0);
 
         CircleShape feetHitbox = new CircleShape();
         feetHitbox.setRadius(hWidth);

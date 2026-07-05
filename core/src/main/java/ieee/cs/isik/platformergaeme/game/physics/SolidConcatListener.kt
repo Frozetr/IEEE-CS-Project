@@ -21,6 +21,11 @@ class SolidConcatListener : ContactListener {
         val dataA = contact?.fixtureA?.userData
         val dataB = contact?.fixtureB?.userData
 
+        val normal = contact?.worldManifold?.normal
+        if (normal != null && normal.y < 0.5) { // Check if the contact is mostly vertical
+            return
+        }
+
         if (dataA is FixtureData && dataA.type == FixtureData.Type.SOLID && dataB is EntityFixtureData) {
             dataB.entity.solidContacts += change
         } else if (dataB is FixtureData && dataB.type == FixtureData.Type.SOLID && dataA is EntityFixtureData) {
