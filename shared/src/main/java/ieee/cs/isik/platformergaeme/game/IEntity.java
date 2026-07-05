@@ -1,6 +1,8 @@
 package ieee.cs.isik.platformergaeme.game;
 
 
+import ieee.cs.isik.platformergaeme.game.entity.Entity;
+
 /**
  * This class holds some part of Entity data that shared between Client and Server
  * Complete data can be found in {@link Entity}

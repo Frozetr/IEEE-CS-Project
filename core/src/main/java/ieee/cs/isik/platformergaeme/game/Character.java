@@ -3,7 +3,7 @@ package ieee.cs.isik.platformergaeme.game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import org.jetbrains.annotations.NotNull;
+import ieee.cs.isik.platformergaeme.game.entity.CharacterEntity;import org.jetbrains.annotations.NotNull;
 
 public interface Character {
     /**
