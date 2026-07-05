@@ -49,7 +49,8 @@ public class GameScreen implements Screen, IAssetfull {
             return Unit.INSTANCE;
         }),
         new CharacterMovementInputAdapter(
-            (moveSign) -> {
+            (moveSign, lookingLeft) -> {
+                mainCharacter.lookingLeft = lookingLeft;
                 Vector2 currentSpeed = mainCharacter.body.getLinearVelocity();
                 currentSpeed.x = AcceleratorKt.accelerate(
                     currentSpeed.x,
@@ -210,14 +211,21 @@ public class GameScreen implements Screen, IAssetfull {
             float halfW = width / 2,
                 halfH = height / 2;
 
-            float scaleX = entity.lookingLeft ? -1 : 1;
+            float direction = entity.lookingLeft ? -1 : 1;
             batch.draw (
                 mat.getFrame(),
 
                 pos.x * GameManager.getMeter2PixelsRatio() - halfW,
                 pos.y * GameManager.getMeter2PixelsRatio() - halfH,
+                halfW,
+                halfH,
                 width,
-                height);
+                height,
+                direction,
+                1,
+                90 * direction,
+                true
+            );
         }
         batch.end();
 
