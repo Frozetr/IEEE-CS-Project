@@ -63,12 +63,14 @@ public class GameManager {
         return game;
     }
 
-    private final static float characterHeightInMeters=1.8f;
-    private static float meter2PixelsRatio=0, characterHeightInPixels;
+    public final static float characterDrawHeightInMeters=2f;
+    public final static float characterHeightInMeters=1.8f;
+    private static float meter2PixelsRatio=0, characterHeightInPixels, characterDrawHeightInPixels;
 
     public static void setMeter2PixelsRatio(float r) {
         meter2PixelsRatio = r;
         characterHeightInPixels = characterHeightInMeters * r;
+        characterDrawHeightInPixels = characterDrawHeightInMeters * r;
     }
 
     public static float getMeter2PixelsRatio() {
@@ -77,5 +79,8 @@ public class GameManager {
 
     public static float getCharacterHeightInPixels() {
         return characterHeightInPixels;
+    }
+    public static float getCharacterDrawHeightInPixels() {
+        return characterDrawHeightInPixels;
     }
 }

@@ -1,6 +1,7 @@
-package ieee.cs.isik.platformergaeme.game;
+package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 public class TextureMaterial extends Material {
@@ -21,5 +22,10 @@ public class TextureMaterial extends Material {
     @Override
     public TextureRegion getFrame() {
         return texture;
+    }
+
+    @Override
+    public Vector2 getDrawSize() {
+        return new Vector2(texture.getRegionWidth(), texture.getRegionHeight());
     }
 }

@@ -1,6 +1,7 @@
-package ieee.cs.isik.platformergaeme.game;
+package ieee.cs.isik.platformergaeme.game.materials;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,5 +25,10 @@ public class StateMaterial extends Material {
     @Override
     public TextureRegion getFrame() {
         return materials.get(stateIndexes.get(state)).getFrame();
+    }
+
+    @Override
+    public Vector2 getDrawSize() {
+        return materials.get(stateIndexes.get(state)).getDrawSize();
     }
 }

@@ -2,12 +2,12 @@ apply plugin: 'application'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
 
-java.sourceCompatibility = 11
-java.targetCompatibility = 11
+java.sourceCompatibility = 17
+java.targetCompatibility = 17
 if (JavaVersion.current().isJava9Compatible()) {
-        compileJava.options.release.set(11)
+        compileJava.options.release.set(17)
 }
-kotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+kotlin.compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
 
 application.mainClass = 'ieee.cs.isik.platformergaeme.server.ServerLauncher'
 application.applicationName = appName

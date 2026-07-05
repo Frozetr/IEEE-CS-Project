@@ -1,7 +1,7 @@
-package ieee.cs.isik.platformergaeme.game;
+package ieee.cs.isik.platformergaeme.game.entity;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import org.jetbrains.annotations.NotNull;
+import ieee.cs.isik.platformergaeme.game.materials.Material;import org.jetbrains.annotations.NotNull;
 
 /**
  * This class represents consumable entities like potions, foods Ωetc.
