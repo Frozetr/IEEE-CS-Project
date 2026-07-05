@@ -46,7 +46,7 @@ public enum Pack16Character implements Character {
         PolygonShape circle = new PolygonShape();
 
         float hHeight = GameManager.getCharacterHeightInPixels() / GameManager.getMeter2PixelsRatio() / 2;
-        float hWidth = hHeight * 3 / 4;
+        float hWidth = hHeight * 3 / 4 * 0.75f; // Multiply with 0.75f for game experience
         circle.setAsBox(hWidth, hHeight);
 
         double area = hWidth * hHeight * 4;

@@ -44,7 +44,7 @@ public class GameScreen implements Screen, IAssetfull {
                 case JUMP -> {
                     if(mainCharacter.solidContacts == 0 || mainCharacter.body.getLinearVelocity().y != 0) break;
                     mainCharacter.body.applyLinearImpulse(
-                        new Vector2(0f, Character.MASS * 4.43f * 2),
+                        new Vector2(0f, Character.MASS * 4.43f * 1.5f),
                         mainCharacter.body.getWorldCenter(),
                         true
                     );
@@ -196,6 +196,11 @@ public class GameScreen implements Screen, IAssetfull {
          */
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        for (InputProcessor processor : inputProcessor) {
+            if(processor instanceof ActableInputAdapter)
+                ((ActableInputAdapter)processor).act();
+        }
+
         // Iterate the physics world according to delta time
         physicsWorld.step(
             delta,
@@ -203,9 +208,12 @@ public class GameScreen implements Screen, IAssetfull {
             2 // If entities gets conflict so much we must increase position iterations.
         );
 
-        for (InputProcessor processor : inputProcessor) {
-            if(processor instanceof ActableInputAdapter)
-                ((ActableInputAdapter)processor).act();
+
+        Vector2 mainCharacterVelocity = mainCharacter.body.getLinearVelocity();
+        if(mainCharacter.material instanceof StateMaterial mat) {
+            if(mainCharacter.solidContacts == 0) // Jump/Fall state
+                mat.state = 2;
+            else mat.state = mainCharacterVelocity.x == 0 ? 1: 0; // Walk state
         }
 
         mapManager.render(delta);

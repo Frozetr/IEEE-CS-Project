@@ -9,7 +9,6 @@ public interface Character {
     /**
      * Box size in pixels
      */
-    public static final Vector2 boxSize = new Vector2(100, 100);
     public final static float MASS = 80;
     public final static float MOVE_SPEED = 5;
 
