@@ -146,7 +146,9 @@ public class GameScreen implements Screen, IAssetfull {
                         shape.setAsBox(0.5f, 0.5f);
 
                         Fixture fix = body.createFixture(shape, 1f);
-                        fix.setUserData("wall");
+                        fix.setUserData(new FixtureData(
+                            FixtureData.Type.SOLID
+                        ));
                         shape.dispose();
                     }
                 }
