@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import ieee.cs.isik.platformergaeme.GameManager;
 import ieee.cs.isik.platformergaeme.game.entity.CharacterEntity;import ieee.cs.isik.platformergaeme.game.materials.AnimationMaterial;import ieee.cs.isik.platformergaeme.game.materials.Material;import ieee.cs.isik.platformergaeme.game.materials.StateMaterial;import ieee.cs.isik.platformergaeme.game.materials.TextureMaterial;import org.jetbrains.annotations.NotNull;
@@ -43,21 +44,44 @@ public enum Pack16Character implements Character {
         def.fixedRotation = true;
         Body body = physicsWorld.createBody(def);
 
-        PolygonShape circle = new PolygonShape();
-
         float hHeight = GameManager.getCharacterHeightInPixels() / GameManager.getMeter2PixelsRatio() / 2;
-        float hWidth = hHeight * 3 / 4 * 0.75f; // Multiply with 0.75f for game experience
-        circle.setAsBox(hWidth, hHeight);
+        float hWidth = hHeight * 3 / 4 * 0.6f; // Multiply with 0.6f for game experience
 
-        double area = hWidth * hHeight * 4;
-        float density = (float)(MASS / area);
+        PolygonShape mainHitbox = new PolygonShape();
+        mainHitbox.setAsBox(hWidth, hHeight - hWidth, new Vector2(0, hWidth), 0);
 
-        Fixture Fix = body.createFixture(circle, density);
+        CircleShape feetHitbox = new CircleShape();
+        feetHitbox.setRadius(hWidth);
+        feetHitbox.setPosition(new Vector2(0, -hHeight + hWidth));
+
+
+        double mainHitboxArea = hWidth * (hHeight - hWidth) * 4;
+        double feetHitboxArea = Math.PI * hWidth * hWidth;
+        double totalArea = mainHitboxArea + feetHitboxArea;
+        float density = (float)(MASS / totalArea);
+
+        FixtureDef mainFixtureDef = new FixtureDef();
+        mainFixtureDef.shape = mainHitbox;
+        mainFixtureDef.density = density;
+        mainFixtureDef.friction = 0; // Disable friction for the main body
+
+        FixtureDef feetFixtureDef = new FixtureDef();
+        feetFixtureDef.shape = feetHitbox;
+        feetFixtureDef.density = density;
+        feetFixtureDef.friction = 1; // Enable friction for the feet
+
         CharacterEntity characterEntity = new CharacterEntity(id, 0, "Character", 100f, 100f, body, mat, null, null);
-        Fix.setUserData(new EntityFixtureData(
-            characterEntity,
-            FixtureData.Type.SOLID
-        ));
+
+
+        Fixture mainFix = body.createFixture(mainFixtureDef);
+        Fixture feetFix = body.createFixture(feetFixtureDef);
+
+        mainFix.setUserData(new EntityFixtureData(characterEntity, FixtureData.Type.SOLID));
+        feetFix.setUserData(new EntityFixtureData(characterEntity, FixtureData.Type.SOLID));
+
+
+        mainFixtureDef.shape.dispose();
+        feetFixtureDef.shape.dispose();
 
         return characterEntity;
     }
