@@ -42,7 +42,7 @@ public class GameScreen implements Screen, IAssetfull {
         new CharacterSkillsBufferedInputAdapter(input -> {
             switch (input.getType()) {
                 case JUMP -> {
-                    if(!mainCharacter.collidingSolid || mainCharacter.body.getLinearVelocity().y != 0) break;
+                    if(mainCharacter.groundContacts == 0 || mainCharacter.body.getLinearVelocity().y != 0) break;
                     mainCharacter.body.applyLinearImpulse(
                         new Vector2(0f, Character.MASS * 4.43f * 2),
                         mainCharacter.body.getWorldCenter(),

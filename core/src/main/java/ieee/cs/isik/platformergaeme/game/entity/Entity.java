@@ -33,7 +33,7 @@ public abstract class Entity implements Disposable {
     public Material material;
 
     public boolean lookingLeft = false;
-    public boolean collidingSolid = false;
+    public int groundContacts = 0;
 
     public Entity(final int id, final int type, final String name, final float health, final float maxHealth, @NotNull final Body body, @NotNull Material material) {
         // Initialize the super class IEntity
