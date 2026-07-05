@@ -20,6 +20,8 @@ public abstract class Entity extends IEntity implements Disposable {
     @NotNull
     public Material material;
 
+    public boolean lookingLeft = false;
+
     public Entity(final int id, final int type, final String name, final float health, final float maxHealth, @NotNull final Body body, @NotNull Material material) {
         // Initialize the super class IEntity
         super(id, type, name, health, maxHealth);

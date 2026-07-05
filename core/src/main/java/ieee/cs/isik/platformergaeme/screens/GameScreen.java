@@ -210,7 +210,14 @@ public class GameScreen implements Screen, IAssetfull {
             float halfW = width / 2,
                 halfH = height / 2;
 
-            batch.draw(mat.getFrame(), pos.x * GameManager.getMeter2PixelsRatio() - halfW, pos.y * GameManager.getMeter2PixelsRatio() - halfH, width, height);
+            float scaleX = entity.lookingLeft ? -1 : 1;
+            batch.draw (
+                mat.getFrame(),
+
+                pos.x * GameManager.getMeter2PixelsRatio() - halfW,
+                pos.y * GameManager.getMeter2PixelsRatio() - halfH,
+                width,
+                height);
         }
         batch.end();
 
