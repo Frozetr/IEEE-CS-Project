@@ -22,9 +22,9 @@ class SolidConcatListener : ContactListener {
         val dataB = contact?.fixtureB?.userData
 
         if (dataA is FixtureData && dataA.type == FixtureData.Type.SOLID && dataB is EntityFixtureData) {
-            dataB.entity.groundContacts += change
+            dataB.entity.solidContacts += change
         } else if (dataB is FixtureData && dataB.type == FixtureData.Type.SOLID && dataA is EntityFixtureData) {
-            dataA.entity.groundContacts += change
+            dataA.entity.solidContacts += change
         }
     }
 
