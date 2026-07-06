@@ -1,16 +1,18 @@
 package ieee.cs.isik.platformergaeme;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapLoader;
+
 import ieee.cs.isik.platformergaeme.screens.GameScreen;
 import ieee.cs.isik.platformergaeme.screens.LoadingScreen;
 import ieee.cs.isik.platformergaeme.screens.MenuScreen;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 
 /**

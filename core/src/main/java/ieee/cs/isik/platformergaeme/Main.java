@@ -14,21 +14,17 @@ import com.badlogic.gdx.Gdx;
 public class Main extends Game {
     @Override
     public void create() {
-        /*
-         * Set this 'Game' object as global 'Game' object of GameManager
-         */
+        
         GameManager.game = this;
-        // Set process name (Name of the window in desktop/laptop or name of the app in mobile)
+        
         Gdx.graphics.setTitle("IEEE CS Ekibi Mario");
 
-        // Force window to fullscreen
         Gdx.graphics.setFullscreenMode(
             Gdx.graphics.getDisplayMode(
                 Gdx.graphics.getMonitor()
             )
         );
 
-        // Show default to GameScreen screen till we start MenuScreen
         GameManager.show(GameManager.ScreenType.MenuType);
     }
     @Override

@@ -1,5 +1,9 @@
 package ieee.cs.isik.platformergaeme.screens;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -15,12 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+
 import ieee.cs.isik.platformergaeme.AssetPair;
 import ieee.cs.isik.platformergaeme.GameManager;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MenuScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfull {
     private Stage stage = new Stage(new FillViewport(16 * 40,9*40));
@@ -46,7 +47,6 @@ public class MenuScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
         }
     }
 
-    // Initialize the stage when new instance of MenuScreen created
     private void buildStage() {
         TextureRegion mainButtonTextureUp = new TextureRegion(assets.get("UI/Buttons.png", Texture.class), 3, 19 * 5 + 1, 9 * 5 - 3, 3 * 5 + 1);
         TextureRegion mainButtonTextureDown = new TextureRegion(assets.get("UI/Buttons.png", Texture.class), 10 * 5 + 0, 19 * 5 + 1, 9 * 5 - 3, 3 * 5 + 1);
@@ -98,10 +98,6 @@ public class MenuScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
     @Override
     public void render(float delta) {
 
-        /*
-         * Clear previous frame
-         * This will paint entire screen to the default color that we decided in show() with Gdx.gl20.glClearColor function
-         */
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Update and draw GUI
@@ -136,17 +132,11 @@ public class MenuScreen implements Screen, ieee.cs.isik.platformergaeme.IAssetfu
     public void resume() {
     }
 
-    /**
-     * Called when this screen is no longer the current screen for a {@link Game}.
-     */
     @Override
     public void hide() {
 
     }
 
-    /**
-     * Called when this screen should release all resources.
-     */
     @Override
     public void dispose() {
         stage.dispose();

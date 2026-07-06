@@ -1,5 +1,11 @@
 package ieee.cs.isik.platformergaeme.screens;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,12 +13,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import ieee.cs.isik.platformergaeme.AssetPair;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import ieee.cs.isik.platformergaeme.AssetPair;
 
 public class LoadingScreen<T extends Screen & ieee.cs.isik.platformergaeme.IAssetfull> implements Screen {
 
@@ -102,17 +104,13 @@ public class LoadingScreen<T extends Screen & ieee.cs.isik.platformergaeme.IAsse
 
     }
 
-    /**
-     * Called when this screen is no longer the current screen for a {@link Game}.
-     */
+    
     @Override
     public void hide() {
 
     }
 
-    /**
-     * Called when this screen should release all resources.
-     */
+    
     @Override
     public void dispose() {
 

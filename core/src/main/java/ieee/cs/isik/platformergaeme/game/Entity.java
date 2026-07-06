@@ -1,8 +1,9 @@
 package ieee.cs.isik.platformergaeme.game;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Disposable;
-import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -26,6 +27,7 @@ public abstract class Entity extends IEntity implements Disposable {
 
         this.body = body;
         this.material = material;
+        body.setUserData(this);
     }
 
     /// Clean up resources
